@@ -1,0 +1,8 @@
+requests
+openai
+Pillow
+gradio
+python-dotenv
+python-docx
+openpyxl
+dashscope

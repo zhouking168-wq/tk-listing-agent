@@ -1,0 +1,6 @@
+.env
+.env.backup
+__pycache__/
+.cache/
+*.pyc
+test_output*/
