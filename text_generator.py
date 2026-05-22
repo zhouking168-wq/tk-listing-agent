@@ -23,19 +23,51 @@ COUNTRY_STYLE = {
 }
 
 TITLE_RULES = """
-【Title Rules】
-- Length: STRICTLY 80-90 meaningful characters (spaces and punctuation NOT counted).
-  Count only letters, digits, and commas. Example: "Brand Yoga Leggings, High Waist, Squat Proof, Gym Wear" → count letters+digits+commas only.
-- Structure Requirements (ALL FOUR must be present):
-  1. Brand word — must mention the brand
-  2. Product main keyword — what the product is
-  3. Core selling point — the key benefit or feature
-  4. Scene or audience word — where/when to use or who it's for (at least one required)
-- The first 3 words must tell the user exactly what you're selling
-- DO NOT use emojis of any kind
-- DO NOT use | - # * / or any special symbols
-- ONLY use: letters (A-Z, a-z), digits (0-9), spaces, and commas
-- Separate keywords with spaces and commas only
+【Title Rules — TikTok Shop Standard】
+
+Length:
+- 80-150 total characters (keep within 150 for mobile display)
+- Place core keyword within the first 30-40 characters
+
+Forbidden Words (NEVER use):
+- Marketing/promotional: "Best", "Cheap", "50% OFF", "Free Shipping", "Sale", "Limited", "Buy Now"
+- Superlatives: "Number One", "Top", "Amazing", "Incredible"
+- Guarantee: "100%", "Guaranteed", "Promise"
+
+Forbidden Symbols:
+- NO exclamation marks (!!), NO emojis
+- NO: | - # * / @
+- ONLY: letters, digits, spaces, commas
+
+Compatibility Rule:
+- Accessories MUST use "for" (e.g., "Case for iPhone" NOT "iPhone Case")
+
+Title Structure — Modular Formula:
+Build the title by filling these 3 modules in order (pick 1-3 items per module):
+
+Module 1 — CORE KEYWORD (MUST come first):
+  Product name, category name, local common name
+  Examples: T-Shirt, Phone Case, Necklace, Bracelet, Yoga Pants
+
+Module 2 — ATTRIBUTE / FEATURE (follows immediately after core):
+  Material, color, style, size, function features, quantity
+  Examples: Cotton, Striped, High-Waist, Breathable, 925 Silver, Adjustable, Waterproof
+
+Module 3 — SCENE / AUDIENCE / LONG-TAIL (placed at the end):
+  Target audience, season, occasion, compatibility, design traits
+  Examples: for Women, Summer Top, for Travel, for Yoga, Unisex Gift, Boho Style
+
+CORRECT example (80-150 chars):
+  Men Cotton Striped T-Shirt, Breathable Casual Summer Top for Travel
+  → Core=T-Shirt, Attr=Men/Cotton/Striped/Breathable, Scene=Casual Summer/for Travel
+
+WRONG example (too long, forbidden words, core buried):
+  Best Amazing Summer Top for Men Travel Cotton T-Shirt Breathable
+  → Forbidden words used, core keyword not first, structure broken
+
+Keyword Density:
+- Same core keyword at most 2 times
+- Total keyword density: 5%-10% of title length
 """
 
 DESCRIPTION_RULES = """
@@ -51,10 +83,13 @@ The 5 selling points must cover:
   4. Style / Color Options — variety, how to match
   5. Quality / Service — guarantee, shipping, after-sales
 
+TRENDING WORD INJECTION RULE: The "positive_keywords" list contains REAL trending search terms from TikTok. You MUST weave 2-3 of these trending words into the selling points and QA section. These words are what real buyers are searching for — using them makes your listing discoverable.
+
 Writing principles:
   - Turn features into user benefits (not "waterproof fabric" but "rain? no worries!")
   - Use specific numbers (e.g. "4 spacious pockets", "3 stylish colors")
   - Conversational tone, like chatting with a friend
+  - Naturally include trending keywords from what buyers are searching for
 
 Good example:
 🌿 Premium Canvas That Lasts
@@ -123,15 +158,20 @@ def _build_title_prompt(brand: str, main_keyword: str, hot_keywords: str, crowd_
 - Product Functions: {functions}
 - Key Selling Points: {selling_points}
 
-CRITICAL: Each title's meaningful character count (letters + digits + commas ONLY — spaces and punctuation excluded) MUST be 80-90.
-Before outputting, verify each title is within this range.
-MANDATORY: Each title MUST contain all four elements: Brand + Main Keyword + Selling Point + Scene/Audience word.
+CRITICAL: Each title MUST be 80-150 total characters. Verify each title is within 150 chars.
+Build titles using the 3-module formula: [Core Keyword] + [Attribute/Feature Words] + [Scene/Audience Words].
+Core keyword MUST be first, within the first 30-40 characters.
+NEVER use forbidden words: Best, Cheap, 50% OFF, Free Shipping, Amazing, Top, Number One, Guaranteed.
+NEVER use emojis, exclamation marks, or special symbols.
+Accessories MUST use "for" (e.g., "Case for Phone" NOT "Phone Case").
+
+HOT KEYWORD INJECTION RULE: You MUST incorporate hot keywords from the provided list into EVERY title. These are real trending search terms from TikTok — ignoring them means your titles won't rank. Pick the most relevant 2-3 hot keywords and weave them naturally into each title. Do NOT skip this step.
 
 Generate exactly 3 English titles, each on its own line:
 
-1. SEO Traffic Title (80-90 meaningful chars) — maximize search visibility, include main keyword and 2-3 hot keywords
-2. Conversion Title (80-90 meaningful chars) — highlight the strongest selling point with emotional appeal
-3. Brand Tone Title (80-90 meaningful chars) — elegant and premium feel, reflect brand personality
+1. SEO Traffic Title (80-150 chars) — maximize TikTok search visibility, MUST include 2-3 hot keywords from the provided list
+2. Conversion Title (80-150 chars) — strongest selling point + MUST include at least 1 hot keyword for trend relevance
+3. Brand Tone Title (80-150 chars) — elegant brand feel + MUST include at least 1 hot keyword naturally woven in
 
 Output format (each title on its own line, no numbering, no prefixes):
 <Title 1>

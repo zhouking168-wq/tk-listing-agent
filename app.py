@@ -278,14 +278,14 @@ def on_generate_copy(state: dict, brand: str, main_kw: str, category_kw: str,
     except Exception as e:
         status += f"  描述生成失败：{e}\n"
 
-    # Hashtags
+    # Hashtags — pass hot keywords as scene keywords for better relevance
     status += "  正在生成话题标签……\n"
     hashtags_str = ""
     try:
         tags = generate_hashtags(
             main_keyword=main_kw,
             category_keyword=category_kw,
-            scene_keywords="gym, home workout, daily wear",
+            scene_keywords=hot_kw if hot_kw else "daily wear, gym, home workout",
             crowd_keywords=crowd_kw,
         )
         state["hashtags"] = tags
